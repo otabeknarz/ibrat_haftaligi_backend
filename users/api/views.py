@@ -1,8 +1,11 @@
+from django.db.models import Count
 from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from users.models import User, Invitation
-from .serializers import UserSerializer, InvitationSerializer, UserDetailSerializer
+from .serializers import UserSerializer, UserStatsSerializer, InvitationSerializer, UserDetailSerializer
 
 
 class InvitationViewSet(viewsets.ModelViewSet):
@@ -46,3 +49,14 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             return UserSerializer
         return UserDetailSerializer
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def stats(request):
+    users = User.objects.annotate(
+        invitations_count=Count("invitations")
+    ).order_by("-invitations_count")
+
+    serializer = UserStatsSerializer(users, many=True)
+    return Response(serializer.data)

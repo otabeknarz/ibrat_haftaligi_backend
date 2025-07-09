@@ -22,6 +22,22 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
+class UserStatsSerializer(serializers.ModelSerializer):
+    invitations_count = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "has_taken_gift",
+            "invitation_token",
+            "invitations_count"
+        )
+
+
 class InvitationDetailSerializer(serializers.ModelSerializer):
     invited_user = UserSerializer(read_only=True)
 
