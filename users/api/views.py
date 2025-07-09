@@ -56,7 +56,7 @@ class UserViewSet(viewsets.ModelViewSet):
 def stats(request):
     users = User.objects.annotate(
         invitations_count=Count("invitations")
-    ).order_by("-invitations_count")
+    ).order_by("-invitations_count")[:10]
 
     serializer = UserStatsSerializer(users, many=True)
     return Response(serializer.data)
