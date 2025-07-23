@@ -6,6 +6,7 @@
 {% if invited_users %}
     <ul>
         {% for user in invited_users %}
+        <li>{{ user.first_name }} {{ user.last_name }}</li>
         <li>{{ user.username }}</li>
         {% endfor %}
     </ul>
