@@ -18,7 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from users.views import stats, invited_users
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/users/", include("users.api.urls")),
+    path("stats/", stats, name="stats"),
+    path("invited_users/<str:user_id>/", invited_users, name="invited_users"),
 ]

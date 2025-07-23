@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Users Invited by {{ inviter.username }}</h1>
+{% if invited_users %}
+    <ul>
+        {% for user in invited_users %}
+        <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No users invited by {{ inviter.username }}.</p>
+{% endif %}
+<a href="{% url 'stats' %}">← Back to Top Inviters</a>
+
+{% endblock %}

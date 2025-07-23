@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Top 250 Inviters</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Invites</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'invited_users' user.id %}">
+                    {{ user.username }}
+                </a>
+            </td>
+            <td>{{ user.invite_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
